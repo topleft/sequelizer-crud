@@ -1,24 +1,23 @@
 {
   "development": {
-    "username": "update me",
-    "password": "update me",
-    "database": "todos",
+    "username": "petej",
+    "password": null,
+    "database": "sequelizer",
     "host": "127.0.0.1",
-    "port": "5432",
     "dialect": "postgres"
   },
   "test": {
-    "username": "update me",
-    "password": "update me",
-    "database": "update_me",
-    "host": "update me",
-    "dialect": "update me"
+    "username": "petej",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   },
   "production": {
-    "username": "update me",
-    "password": "update me",
-    "database": "update me",
-    "host": "update me",
-    "dialect": "update me"
+    "username": "petej",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   }
 }

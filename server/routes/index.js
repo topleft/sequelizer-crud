@@ -8,68 +8,64 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/users', function(req, res) {
-  models.User.create({
-    email: req.body.email
-  }).then(function(user) {
-    res.json(user);
-  });
-});
+    models.User.create({
+        email: req.body.email,
+        password: req.body.password
+    }).then(function(user){
+        res.json(user);
+    });
+}); 
 
-// get all todos
-router.get('/todos', function(req, res) {
-  models.Todo.findAll({}).then(function(todos) {
-    res.json(todos);
-  });
-});
-
-// get single todo
-router.get('/todo/:id', function(req, res) {
-  models.Todo.find({
-    where: {
-      id: req.params.id
-    }
-  }).then(function(todo) {
-    res.json(todo);
-  });
-});
-
-// add new todo
-router.post('/todos', function(req, res) {
-  models.Todo.create({
-    title: req.body.title,
-    UserId: req.body.user_id
-  }).then(function(todo) {
-    res.json(todo);
-  });
-});
-
-// update single todo
-router.put('/todo/:id', function(req, res) {
-  models.Todo.find({
-    where: {
-      id: req.params.id
-    }
-  }).then(function(todo) {
-    if(todo){
-      todo.updateAttributes({
+router.post('/users/todos/:userid', function(req, res) {
+    models.Todo.create({
         title: req.body.title,
-        complete: req.body.complete
-      }).then(function(todo) {
-        res.send(todo);
-      });
-    }
-  });
+        text: req.body.text,
+        UserId: req.params.userid
+    }).then(function(user){
+        res.json(user);
+    });
+}); 
+
+
+
+router.get('/users/todos/:userid', function(req, res) {
+    models.Todo.findAll({
+        where: {
+            UserId: req.params.userid 
+        }
+    }).then(function(todos){
+        res.json(todos);
+    });
 });
 
-// delete a single todo
-router.delete('/todo/:id', function(req, res) {
-  models.Todo.destroy({
-    where: {
-      id: req.params.id
-    }
-  }).then(function(todo) {
-    res.json(todo);
-  });
+router.put('/users/todos/:todoid', function(req, res) {
+    models.Todo.find({
+        where: {
+            id: req.params.todoid 
+        }
+    }).then(function(todo){
+        if (todo) {
+            todo.updateAttributes({
+                title: req.body.title,
+                text: req.body.text,
+                complete: req.body.complete
+            }).then(function(todo){
+                res.json(todo);
+            });
+        }
+    });
 });
+
+router.delete('/users/todos/:todoid', function(req, res) {
+    models.Todo.destroy({
+        where: {
+            id: req.params.todoid 
+        }
+    }).then(function(todo){
+        res.json(todo);
+    });
+});
+
+
 
 module.exports = router;
