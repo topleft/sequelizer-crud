@@ -1,14 +1,19 @@
 process.env.NODE_ENV = 'test';
 
+var server = require("../server/app");
 var mocha = require('mocha');
 var chai = require('chai');
+var chaiHttp = require('chai-http');
 var request = require('request');
 var cheerio = require('cheerio');
-var should = chai.should;
-
+var should = chai.should();
+chai.use(chaiHttp);
 
 var models = require('../server/models/index');
 
+console.log('=====================================================')
+console.log('=================     new test   ====================')
+console.log('=====================================================')
 describe('user & todo routes', function() {
     var test1User;
     var test2User;
@@ -49,19 +54,58 @@ describe('user & todo routes', function() {
 
     afterEach(function(done){
         // delete user and todo from DB
-        models.User.destroy({}).then(function(user){
-            console.log(user);
-        });
-        models.Todo.destroy({}).then(function(todo){
-            console.log(todo);
-        });
+        models.User.destroy({truncate: true});
+        models.Todo.destroy({truncate: true});
 
         done();
     });
 
+
+    describe('/', function(){
+        it('should return 200', function(done){
+            chai.request(server)
+            .get('/')
+            .end(function(err, res){
+                res.should.have.status(200);
+                done();
+            });
+            
+        });
+    });
+
     describe('POST /users', function(){
-        it('should return a user object');
-        it('should create a user in the DB');
+        it('should return a user object', function(done){
+            chai.request(server)
+            .post('/users')
+            .send({email: 'test3@test.com', password: 'test3'})
+            .end(function(err, res){
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.be.a('object');
+                res.body.should.have.property('email');
+                res.body.should.have.property('password');
+                res.body.should.have.property('id');
+                done();
+            });
+            
+        });
+// need to upate models validations  then rewrite test
+        it('should throw an error if password is not passed', function(done){
+            chai.request(server)
+            .post('/users')
+            .send({email: 'test4@test.com'})
+            .end(function(err, res){
+                console.log('LOGGGGGGG  ',err, res.body);
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.should.be.a('object');
+                res.body.should.have.property('email');
+                res.body.should.have.property('password');
+                res.body.should.have.property('id');
+                done();
+            });
+            
+        });
         it('should throw an error if email or password are not passed');
     });
 
