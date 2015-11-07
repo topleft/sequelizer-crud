@@ -7,6 +7,9 @@ var jshint = require('gulp-jshint');
 var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var nodemon = require('gulp-nodemon');
+var mocha = require('gulp-mocha');
+var util = require('gulp-util');
+
 
 
 /**
@@ -69,8 +72,18 @@ gulp.task('nodemon', function (cb) {
   });
 });
 
+gulp.task('test', function () {
+    return gulp.src(paths.test, { read: false })
+        .pipe(mocha({ reporter: 'spec' }))
+        .on('error', util.log);
+});
+
+gulp.task('watch-test', function () {
+    gulp.watch(['server/models/*.js', 'server/routes/*.js', 'app.js', 'test/**'], ['test']);
+});
+
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['lint']);
 });
 
-gulp.task('default', ['browser-sync', 'watch'], function(){});
+gulp.task('default', ['browser-sync', 'watch', 'watch-test'], function(){});
