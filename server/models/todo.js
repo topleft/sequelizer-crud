@@ -1,0 +1,19 @@
+'use strict';
+module.exports = function(sequelize, DataTypes) {
+  var Todo = sequelize.define('Todo', {
+    title: DataTypes.STRING,
+    text: DataTypes.STRING,
+    complete: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    UserId: DataTypes.INTEGER
+  }, {
+    classMethods: {
+      associate: function(models) {
+        Todo.belongTo(models.User);
+      }
+    }
+  });
+  return Todo;
+};

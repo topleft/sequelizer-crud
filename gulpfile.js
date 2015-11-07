@@ -22,6 +22,9 @@ var paths = {
   ],
   server: [
     './server/bin/www'
+  ],
+  test: [
+    './test/*.js'
   ]
 };
 
