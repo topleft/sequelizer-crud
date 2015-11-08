@@ -11,9 +11,11 @@ chai.use(chaiHttp);
 
 var models = require('../server/models/index');
 
-console.log('=====================================================')
-console.log('=================     new test   ====================')
-console.log('=====================================================')
+console.log('\n');
+console.log('=====================================================');
+console.log('=================     new test   ====================');
+console.log('=====================================================');
+
 describe('user & todo routes', function() {
     var test1User;
     var test2User;
