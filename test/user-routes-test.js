@@ -42,15 +42,15 @@ describe('user & todo routes', function() {
                     done();
             });
         }); 
-
-
-          
-
     });
 
+    afterEach(function(){
+        console.log('\name\n')
+    })
 
 
-    describe('/', function(){
+
+    describe('*** /', function(){
         
         it('should return 200', function(done){
             chai.request(server)
@@ -62,7 +62,7 @@ describe('user & todo routes', function() {
         });
     });
 
-    describe('POST /users', function(){
+    describe('*** POST /users', function(){
         it('should return a user object', function(done){
             chai.request(server)
             .post('/users')
@@ -79,23 +79,59 @@ describe('user & todo routes', function() {
             
         });
 // need to upate models validations  then rewrite test
-        xit('should throw an error if password is not passed', function(done){
+        it('should throw an error if invalid email is not passed', function(done){
+            chai.request(server)
+            .post('/users')
+            .send({email: 'testtestcom'})
+            .end(function(err, res){
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.name.should.equal('SequelizeValidationError');
+                done();
+            });
+        });
+
+
+        it('should throw an error if email is not passed', function(done){
+            chai.request(server)
+            .post('/users')
+            .send()
+            .end(function(err, res){
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.name.should.equal('SequelizeValidationError');
+                done();
+            });
+            
+        });
+        
+        it('should throw an error if password not passed', function(done){
             chai.request(server)
             .post('/users')
             .send({email: 'test4@test.com'})
             .end(function(err, res){
                 res.should.have.status(200);
                 res.should.be.json;
+                res.body.name.should.equal('SequelizeValidationError');
                 done();
             });
-            
         });
-        
-        xit('should throw an error if email not passed');
+
+    it('should throw an error if empty string is passed for password', function(done){
+            chai.request(server)
+            .post('/users')
+            .send({email: 'test4@test.com', password: ''})
+            .end(function(err, res){
+                res.should.have.status(200);
+                res.should.be.json;
+                res.body.name.should.equal('SequelizeValidationError');
+                done();
+            });
+        });
     
     });
 
-    describe('POST /users/todos/:userid', function(done){
+    describe('*** POST /users/todos/:userid', function(done){
         
         it('should create a todo item', function(done){
             chai.request(server)
@@ -115,7 +151,7 @@ describe('user & todo routes', function() {
         });
     });
 
-    describe('GET /users/todos/:userid', function(){
+    describe('*** GET /users/todos/:userid', function(){
         it('should get all todo items for user', function(done){
             chai.request(server)
             .get('/users/todos/'+test1User.id)
@@ -129,7 +165,7 @@ describe('user & todo routes', function() {
         });
     });
 
-    describe('PUT /users/todos/:todoid', function(){
+    describe('*** PUT /users/todos/:todoid', function(){
         
 
         it('should update one todo item', function(done){
@@ -161,7 +197,7 @@ describe('user & todo routes', function() {
         });
     });
 
-    describe('DELETE /users/todos/:todoid', function(){
+    describe('*** DELETE /users/todos/:todoid', function(){
 
         it('should delete item from DB', function(done){
             chai.request(server)

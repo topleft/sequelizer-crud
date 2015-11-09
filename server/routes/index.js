@@ -13,6 +13,8 @@ router.post('/users', function(req, res) {
         password: req.body.password
     }).then(function(user){
         res.json(user);
+    }).catch(function(err){
+        res.json(err);
     });
 }); 
 
