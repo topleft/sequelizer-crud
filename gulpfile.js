@@ -74,8 +74,7 @@ gulp.task('nodemon', function (cb) {
 
 gulp.task('test', function () {
     return gulp.src(paths.test, { read: false })
-        .pipe(mocha({ reporter: 'spec' }))
-        .on('error', util.log);
+        .pipe(mocha({}));
 });
 
 gulp.task('watch-test', function () {

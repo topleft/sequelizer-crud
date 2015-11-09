@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     text: DataTypes.STRING,
     complete: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false
+      defaultValue: false  
     },
     UserId: DataTypes.INTEGER
   }, {

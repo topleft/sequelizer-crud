@@ -34,7 +34,12 @@ router.get('/users/todos/:userid', function(req, res) {
             UserId: req.params.userid 
         }
     }).then(function(todos){
-        res.json(todos);
+        if (todos.length>0) {
+            res.json(todos);
+        }
+        else {
+            res.json({msg: "No todos for this user, or incorrect user id"});
+        }
     });
 });
 
@@ -53,6 +58,9 @@ router.put('/users/todos/:todoid', function(req, res) {
                 res.json(todo);
             });
         }
+        else {
+            res.json({msg: "Incorrect Todo Id."})
+        }
     });
 });
 
@@ -62,8 +70,10 @@ router.delete('/users/todos/:todoid', function(req, res) {
             id: req.params.todoid 
         }
     }).then(function(todo){
-        res.json(todo);
-    });
+        res.json({msg: "Todo deleted."});
+    }).catch(function(err) {
+        res.json(err);
+    })
 });
 
 
