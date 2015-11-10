@@ -1,4 +1,4 @@
-process.env.NODE_ENV = 'test';
+// process.env.NODE_ENV = 'test';
 
 var server = require("../server/app");
 var mocha = require('mocha');

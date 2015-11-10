@@ -66,3 +66,6 @@ to catch validation errors, use the `.then().catch()` syntax in the post route f
 I would like to write up some details on error handling basics, where they are sent. to the user or to the console, how to elegantly tell the user they need to try again etc.
 
 
+deploying to heroku with travis, need to look into env variables, test production...
+
+
