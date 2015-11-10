@@ -14,5 +14,5 @@
     "dialect": "postgres"
   },
   "production": {
-    "use_env_variable": "postgres://igboezhofzothm:fGR22zK0gbou-ZZkTzXbquPLQg@ec2-204-236-226-63.compute-1.amazonaws.com:5432/dc7ipkejst6lim"
+    "use_env_variable": "DATABASE_URL"
 }
