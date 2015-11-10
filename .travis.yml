@@ -1,12 +1,17 @@
 language: node_js
 node_js:
-- "4.1"
-- "4.0"
-- "0.12"
-- "0.11"
-
+- '4.1'
+- '4.0'
+- '0.12'
+- '0.11'
 before_script:
 - npm install mocha -g
-
 script:
 - mocha
+deploy:
+  provider: heroku
+  api_key:
+    secure: NTFBJxTxhgomlurpoUwvq9GvY7VWgRg1wXnE2L/5yAIClfh404gijXGDFnQH2Q4O8M1mVy9pnX1EWA84jLKWv6NJA3pNMR0Xh+cwoT9ssrc5+cCIb44xOUREPk8v0HNA4QeEZ3SwnNw9PjBJLvHon2vRZrHX+XQMVsEzLBK+WU1BuGqkY4520WH3wk00j8cLbRDEHPMGv1ItBAoPEdpkSui9+eXh7wC5158LkuNrmb+lNQFk5c/Btxkf3oRAWtF8mjI6Koh+E72JG74or+ROJSkK62bn6RvT1PZrcqCY3rHDz6PiFZGynpL0SN/nyix4YjdSz4JqaC4l0yJtlO/PTSuqwJPgYPXbStmSJQo1eWuq3IZQcpJpM6zjvwOW7lNRi6PGjiNX+oNTn9f6iRT8w1tXTdnxi3SR2hyGlLi1FviMUWVuCpfdmA38aCc1CdvimcCr0HbGIbwCIC+Tp81gefd/pkOMcnSiLTXzLu+8Mv6JZ9FC7RlLuMvik9LSWxYnAeZeq2jSTNOJ5WIQs+0/5nIQGFcktBxFUSFWlXmjTfydav5qNE8QiauklRCkP4oktoFBq/3VV/Z9BXtK6mod9kHhEnKNh9vEE7KbSj0hzZPLnowiSx1UnsRiyvPNkfXY2NZaiGkqksGrlag43Fev/dqIf3X4OAjIs6ZQLrvRx/s=
+  app: sheltered-taiga-4891
+  on:
+    repo: topleft/sequelizer-crud
