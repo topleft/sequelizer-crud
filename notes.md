@@ -61,4 +61,8 @@ there are options that are declared in the field object (allowNull, unique...), 
 
 to catch validation errors, use the `.then().catch()` syntax in the post route for that schema, the validators will send an error if conditions aren't met.
 
+### error handling, how to
+
+I would like to write up some details on error handling basics, where they are sent. to the user or to the console, how to elegantly tell the user they need to try again etc.
+
 
